@@ -14,7 +14,7 @@ public class ReverseTest {
     public static void main(String[] args) throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        InputStream is= ReverseTest.class.getClassLoader().getResource("config/mybatis/generatorConfig.xml")
+        InputStream is= ReverseTest.class.getClassLoader().getResource("mybatis/generatorConfig.xml")
                 .openStream();
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(is);

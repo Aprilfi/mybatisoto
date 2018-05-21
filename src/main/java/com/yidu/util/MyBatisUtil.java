@@ -28,7 +28,7 @@ public class MyBatisUtil {
 	 */
 	public static SqlSessionFactory getSqlSessionFactory(){
 		// 1.主配置文件的位置字符串
-		String resFile = "config/mybatis/SqlMapConfig.xml";
+		String resFile = "mybatis/SqlMapConfig.xml";
 		// 2.定义输入流
 		InputStream in = null;
 		SqlSessionFactory sqlSessionFactory = null;
