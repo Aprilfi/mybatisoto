@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.dao.UserDataDao">
+
+    <select id="findUserDataByName"
+            parameterType="java.lang.String"
+            resultType="com.yidu.domain.UserData">
+
+        SELECT * FROM userdata WHERE name = #{name}
+
+    </select>
+
+    <insert id="addUserData" parameterType="com.yidu.domain.UserData">
+
+        INSERT userdata VALUES ( NULL , #{name} , #{password} , #{sex} , #{birthday} , #{phonw} )
+
+    </insert>
+
+</mapper>

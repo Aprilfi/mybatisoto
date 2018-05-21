@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+		<!-- 打开延迟加载的开关 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 将积极加载改为消息加载即按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!--打开二级缓存-->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+
+	<typeAliases>
+
+		<package name="com.yidu.domain" />
+
+	</typeAliases>
+
+	<plugins>
+		 <!--注册分页查询的插件-->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+		</plugin>
+	</plugins>
+
+	<environments default="mybatisoto">
+
+		<environment id="mybatisoto">
+
+			<transactionManager type="JDBC" />
+
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://127.0.0.1:3306/whljava?characterEncoding=UTF-8" />
+				<property name="username" value="root" />
+				<property name="password" value="whl123456" />
+			</dataSource>
+
+		</environment>
+
+
+	</environments>
+
+	
+	<mappers>
+
+		<mapper class="com.yidu.dao.UserDataDao"/>
+
+		<mapper class="com.yidu.dao.OrderDao"></mapper>
+		<mapper class="com.yidu.dao.OrderItemDao"></mapper>
+
+	</mappers>
+</configuration>

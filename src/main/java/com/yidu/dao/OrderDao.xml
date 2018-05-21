@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.dao.OrderDao">
+    <cache/>
+
+    <select id="ConditionalCombinationQuery"
+            parameterType="Map"
+            resultType="com.yidu.domain.Order">
+        SELECT * FROM orders
+        <where>
+              <if test="ordertime != null">
+                  AND ordertime &gt; #{ordertime}
+              </if>
+
+              <if test="orderprice != null and orderprice != 0">
+                  AND orderprice &gt; #{orderprice}
+              </if>
+
+              <if test="orderuser != null">
+                  AND  orderuser = #{orderuser}
+              </if>
+
+              <if test="orderdescribe != null">
+                  <bind name="likedescribe" value="'%' + orderdescribe + '%'"/>
+                  AND orderdescribe LIKE #{likedescribe}
+              </if>
+
+              <if test="orderidList != null and orderidList.size() != 0">
+                  <foreach item="item" index="index" collection="orderidList"
+                           open="AND orderid IN (" close=")" separator=",">
+                      #{item}
+                  </foreach>
+              </if>
+
+        </where>
+    </select>
+
+    <!--parameterType="com.yidu.domain.paramMap"-->
+    <select id="findOrderByPage"
+            resultType="com.yidu.domain.Order">
+
+        SELECT * FROM orders
+        <!-- 添加了pagehelper插件
+        <if test="rows != null and page != null">-->
+            <!--JOIN (SELECT orderid-->
+                  <!--FROM orders-->
+                  <!--ORDER BY orderid desc-->
+                  <!--LIMIT #{rows}, 1) AS o2-->
+            <!--WHERE o1.orderid &lt;= o2.orderid-->
+            <!--ORDER BY o1.orderid desc LIMIT #{page}-->
+        <!--</if>-->
+    </select>
+
+    <select id="getOrderCount" resultType="java.lang.Integer">
+
+        SELECT COUNT(*) AS orderscount FROM orders
+
+    </select>
+
+
+    <select id="getOrderCountWithCriteria" resultType="java.lang.Integer">
+
+        SELECT COUNT(*) AS orderscount FROM orders
+
+    </select>
+
+
+    <select id="findPriceByPage"
+            parameterType="com.yidu.domain.paramMap"
+            resultType="com.yidu.domain.Order">
+
+        SELECT *
+        FROM orders
+        WHERE orderprice > #{priceStart} AND orderprice &lt; #{priceEnd};
+
+    </select>
+
+    <select id="findTimeByPage"
+            parameterType="com.yidu.domain.paramMap"
+            resultType="com.yidu.domain.Order">
+
+        SELECT *
+        FROM orders
+        WHERE ordertime
+        BETWEEN #{timeStart} AND #{timeEnd}
+
+
+    </select>
+
+</mapper>

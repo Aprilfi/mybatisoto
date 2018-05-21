@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap-3.3.7-dist/bootstrap-table/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="layer-v3.1.1/layer/mobile/need/layer.css" rel="stylesheet" type="text/css">
+    <script src="bootstrap-3.3.7-dist/jquery_3.2.1/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/bootstrap-table/bootstrap-table.js"></script>
+    <script src="bootstrap-3.3.7-dist/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="layer-v3.1.1/layer/layer.js"></script>
+
+
+</head>
+<body>
+<table id="test-table" class="col-xs-12" data-toolbar="#toolbar"></table>
+<script>
+    $(function() {
+        var id = getParam(location.href);
+        initTable("/OrderItemServlet?id="+id,'');
+        function initTable(url) {
+            $('#test-table').bootstrapTable({
+                method: 'post',
+                striped: true,      //是否显示行间隔色
+                cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,     //是否显示分页
+                sortable: false,      //是否启用排序
+                dataType: "json",
+                direction: 'asc',
+                contentType: "application/x-www-form-urlencoded",
+                url: url,//这个接口需要处理bootstrap table传递的固定参数
+                queryParamsType: 'limit', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+                //queryParams: queryParams,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+                sidePagination: "client",   //分页方式：client客户端分页，server服务端分页
+                //search: true,      //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                minimumCountColumns: 2,    //最少允许的列数
+                searchOnEnterKey: true,
+                height: $(window).height() - 50, //自定义表格的高度
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'ordersitemid',
+                    title: '订单条目编号',
+                    align: "center",
+                    switchable: true
+                }, {
+                    field: 'orderid',
+                    title: '订单编号',
+                    align: "center",
+                    switchable: true
+                }, {
+                    field: 'ordername',
+                    title: '名称',
+                    align: "center",
+                    switchable: true
+                }, {
+                    field: 'orderprice',
+                    title: '费用',
+                    align: "center",
+                    switchable: true
+                }, {
+                    field: 'orderitemtotal',
+                    title: '数目',
+                    switchable: true,
+                    align: "center",
+                    sortable: true
+                }, {
+                    field: 'orderuser',
+                    title: '用户',
+                    switchable: true,
+                    align: "center",
+                    sortable: true
+                }]
+            })
+        }
+
+        function getParam(paramName) {
+            var id = paramName.substr(paramName.indexOf("=")+1,paramName.length);
+            return id;
+        }
+    });
+</script>
+</body>
+</html>
