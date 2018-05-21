@@ -69,5 +69,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper class="com.yidu.dao.OrderDao"></mapper>
 		<mapper class="com.yidu.dao.OrderItemDao"></mapper>
 
+
 	</mappers>
 </configuration>
