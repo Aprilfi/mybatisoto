@@ -44,6 +44,7 @@ public class OrderQueryTest {
 
     @Test
     public void QueryPageTest() {
+        BasicConfigurator.configure();
         OrderBiz orderBiz = new OrderBizImpl();
 
         // 获得表的总行数
